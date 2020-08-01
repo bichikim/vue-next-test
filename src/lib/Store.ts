@@ -13,7 +13,7 @@ function _triggerDevToolMutation (name: string, ...args: any[]) {
 }
 
 export class Store<T extends object> {
-  private _state: T extends Ref ? T : UnwrapRef<T>
+  private readonly _state: T extends Ref ? T : UnwrapRef<T>
 
   constructor (state: T) {
     this._state = reactive(state)
