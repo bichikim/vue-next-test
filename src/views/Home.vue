@@ -1,18 +1,30 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <div>{{name}}</div>
+    <div>{{deepName}}</div>
+    <button @click="() => setName('bar')">change</button>
+    <button @click="() => setDeepName('bar')">change</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
+import { defineComponent, ref, computed } from 'vue'
+import { useStore } from 'vuex'
+import { state, setName, setDeepName } from '@/store'
 
 export default defineComponent({
   name: 'Home',
+  setup (props) {
+    const name = computed(() => (state.name))
+    const deepName = computed(() => (state.deep.name))
+    return {
+      name,
+      deepName,
+      setName,
+      setDeepName,
+    }
+  },
   components: {
-    HelloWorld
-  }
+  },
 })
 </script>

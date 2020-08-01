@@ -1,12 +1,19 @@
-import { createStore } from 'vuex'
+import { defineComponent, ref, computed, reactive } from 'vue'
+import { Store } from '@/lib/Store'
 
-export default createStore({
-  state: {
+const store = new Store({
+  name: 'foo',
+  deep: {
+    name: 'foo',
   },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
 })
+
+const state = store.state
+
+export const setName = store.mutation((name: string) => {
+  state.name = name
+})
+
+export const setDeepName = (name: string) => {
+  state.deep.name = name
+}
