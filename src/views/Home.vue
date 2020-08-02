@@ -8,8 +8,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
-import { useStore } from 'vuex'
+import { defineComponent, computed } from 'vue'
 import { state, setName, setDeepName } from '@/store'
 
 export default defineComponent({

@@ -1,5 +1,4 @@
-import { defineComponent, ref, computed, reactive } from 'vue'
-import { Store } from '@/lib/Store'
+import { Store } from '@/lib/vare/Store'
 
 const store = new Store({
   name: 'foo',
@@ -8,7 +7,7 @@ const store = new Store({
   },
 })
 
-const state = store.state
+export const state = store.state
 
 export const setName = store.mutation((name: string) => {
   state.name = name

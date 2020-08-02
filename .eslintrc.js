@@ -27,6 +27,7 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
+    '@typescript-eslint/member-delimiter-style': 'off'
   },
   overrides: [
     {
