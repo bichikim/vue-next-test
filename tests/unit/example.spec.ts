@@ -1,9 +1,8 @@
 import { expect } from 'chai'
 import { Store } from '@/lib/vare/Store'
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message'
+describe('store', () => {
+  it('should do action and mutation with subscribe', () => {
     const store = new Store({
       foo: 'foo',
     })
@@ -20,32 +19,48 @@ describe('HelloWorld.vue', () => {
 
     const updateFoo = store.action(_updateFoo, 'updateFoo')
 
+    let subscribeActionResult: Record<any, any> = {}
     let subscribeResult: Record<any, any> = {}
+    let countAction = 0
     let count = 0
 
-    const _subscribe = (name: string, args: any, action: any, wrappedAction: any) => {
-      subscribeResult = { name, args, action, wrappedAction }
+    const _subscribeAction = (name: string, args: any, action: any, wrappedAction: any) => {
+      subscribeActionResult = { name, args, action, wrappedAction }
+      countAction += 1
+    }
+
+    const _subscribe = (name: string, args: any, action: any, wrapper: any) => {
+      subscribeResult = { name, args, action, wrapper }
       count += 1
     }
 
-    store.subscribeAction(_subscribe)
+    store.subscribeAction(_subscribeAction)
+    store.subscribe(_subscribe)
 
     updateFoo('bar')
 
-    expect(subscribeResult.name).to.equal('updateFoo')
-    expect(subscribeResult.args[0]).to.equal('bar')
-    expect(subscribeResult.action).to.equal(_updateFoo)
-    expect(subscribeResult.wrappedAction).to.equal(updateFoo)
+    expect(subscribeActionResult.name).to.equal('updateFoo')
+    expect(subscribeActionResult.args[0]).to.equal('bar')
+    expect(subscribeActionResult.action).to.equal(_updateFoo)
+    expect(subscribeActionResult.wrappedAction).to.equal(updateFoo)
+    expect(countAction).to.equal(1)
     expect(count).to.equal(1)
+    expect(state.foo).to.equal('bar')
 
-    store.unsubscribeAction(_subscribe)
+    expect(subscribeResult.name).to.equal('setFoo')
+    expect(subscribeResult.args[0]).to.equal('bar')
+
+    store.unsubscribeAction(_subscribeAction)
+    store.unsubscribe(_subscribe)
 
     updateFoo('foo')
 
-    expect(subscribeResult.name).to.equal('updateFoo')
-    expect(subscribeResult.args[0]).to.equal('bar')
-    expect(subscribeResult.action).to.equal(_updateFoo)
-    expect(subscribeResult.wrappedAction).to.equal(updateFoo)
+    expect(subscribeActionResult.name).to.equal('updateFoo')
+    expect(subscribeActionResult.args[0]).to.equal('bar')
+    expect(subscribeActionResult.action).to.equal(_updateFoo)
+    expect(subscribeActionResult.wrappedAction).to.equal(updateFoo)
+    expect(countAction).to.equal(1)
     expect(count).to.equal(1)
+    expect(state.foo).to.equal('foo')
   })
 })
