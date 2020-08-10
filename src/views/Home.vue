@@ -8,13 +8,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
-import { useStore } from 'vuex'
-import { state, setName, setDeepName } from '@/store'
+import {defineComponent, computed} from 'vue'
+import {state, setName, setDeepName} from '@/store'
 
 export default defineComponent({
   name: 'Home',
-  setup (props) {
+  setup(props) {
     const name = computed(() => (state.name))
     const deepName = computed(() => (state.deep.name))
     return {
