@@ -1,6 +1,6 @@
-import {Store} from '@/lib/vare/Store'
+import {createStore} from '@/lib/vare/Store'
 
-const store = new Store({
+const store = createStore({
   name: 'foo',
   deep: {
     name: 'foo',

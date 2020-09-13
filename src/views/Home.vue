@@ -2,14 +2,16 @@
   <div class="home">
     <div>{{name}}</div>
     <div>{{deepName}}</div>
-    <button @click="() => setName('bar')">change</button>
-    <button @click="() => setDeepName('bar')">change</button>
+    <button @click="() => setName(name + '1')">change</button>
+    <button @click="() => setDeepName(deepName + '1')">change</button>
+    <hello-world></hello-world>
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent, computed} from 'vue'
 import {state, setName, setDeepName} from '@/store'
+import HelloWorld from '@/components/HelloWorld'
 
 export default defineComponent({
   name: 'Home',
@@ -24,6 +26,7 @@ export default defineComponent({
     }
   },
   components: {
+    HelloWorld,
   },
 })
 </script>
